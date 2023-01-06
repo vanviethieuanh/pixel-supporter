@@ -5,7 +5,8 @@ from PIL import Image
 
 import glob
 import math
-import argparse
+
+import args_parser
 
 
 def init_writer(path: str, fps: int, **kwargs):
@@ -97,23 +98,8 @@ def gif_to_mp4(gif_path: str, loop: int) -> None:
 
 
 if __name__ == "__main__":
-    # ---------------------------------------------------------------------------- #
-    #                                   ARGUMENTS                                  #
-    # ---------------------------------------------------------------------------- #
-    parser = argparse.ArgumentParser(
-        prog='python gif2mp4.py',
-        description='Convert GIF image to MP4 video.')
+    args = args_parser.args
 
-    parser.add_argument('-l', '--loop', type=int, default=1,
-                        help='Times that GIF gonna loop.')
-    parser.add_argument('-p', '--path', type=str, default='*.gif',
-                        help='Paths to files. If not specify, program will wildcard ./*.gif')
-
-    args = parser.parse_args()
-
-    # ---------------------------------------------------------------------------- #
-    #                                   PROCESSOR                                  #
-    # ---------------------------------------------------------------------------- #
     for gif_path in glob.glob(args.path):
         print(f'Converting {gif_path}')
         gif_to_mp4(gif_path, args.loop)
