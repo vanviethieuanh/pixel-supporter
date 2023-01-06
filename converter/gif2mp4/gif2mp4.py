@@ -3,9 +3,9 @@ import imageio.v2 as imageiov2
 
 from PIL import Image
 
+import os
 import glob
 import math
-
 import args_parser
 
 
@@ -85,7 +85,8 @@ def gif_to_mp4(gif_path: str, loop: int) -> None:
 
     gif = imageiov3.imread(gif_path)
 
-    mp4_filepath = gif_path.rstrip('.gif') + '.mp4'
+    filename, _ = os.path.splitext(gif_path)
+    mp4_filepath = filename + '.mp4'
     writer = init_writer(mp4_filepath, fps)
 
     for _ in range(loop):
